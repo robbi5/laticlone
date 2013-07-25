@@ -3,6 +3,8 @@ LatiClone
 
 A small free and opensource Google Latitude clone. It displays location updates from [Big Brother GPS](http://bk.gnarf.org/creativity/bigbrothergps/) on a big map.
 
+![LatiClone Screenshot](http://i.imgur.com/P4uk5oi.png)
+
 ## Install
 
 You need:
