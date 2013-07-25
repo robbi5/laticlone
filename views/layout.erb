@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LatiClone</title>
+  <link href='http://fonts.googleapis.com/css?family=Allura' rel='stylesheet' />
+  <link href='css/application.css' rel='stylesheet' />
+  <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet' />
+</head>
+<body>
+  <header>
+    <h1>LatiClone</h1>
+    <div id="intro">
+      Install <a href="http://bk.gnarf.org/creativity/bigbrothergps/" target="_blank">Big Brother GPS</a> on your Android Smartphone.<br/>
+      Open Settings and put <code><%= @serverurl %></code> in the URL field.
+    </div>
+  </header>
+  <div id="main">
+    <%= yield %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!-- latest location -->
+<div class="map-wrapper">
+  <div id="current-location-map" class="mbmap"
+    data-mapid="examples.map-vyofok3q"
+    data-zoom="15"
+    data-lon="<%= @newest_location["lon"] %>"
+    data-lat="<%= @newest_location["lat"] %>"
+    data-marker-symbol="circle-stroked"
+    data-marker-color="3178b5">
+  </div>
+  <div class="details">
+    <div class="time" title="Last updated at"><%= Time.parse(@newest_location["created_at"]).strftime("%d.%m.%Y %H:%M:%S") %></div>
+    <div class="pos" title="Last position"><%= @newest_location["lat"] %> / <%= @newest_location["lon"] %></div>
+  </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js"></script>
+<script>
+(function () {
+  var $m = $("#current-location-map"),
+      mapid = $m.data("mapid");
+  var layer = mapbox.layer().id(mapid);
+  var map = mapbox.map('current-location-map', layer);
+  var markerLayer = mapbox.markers.layer();
+  map.zoom($m.data("zoom"));
+  map.center({
+    lon: $m.data("lon"),
+    lat: $m.data("lat")
+  });
+  map.ui.zoomer.add();
+  map.ui.attribution.add().content('<a href="http://mapbox.com/about/maps" style="font-family: Arial,sans-serif; color: #666; text-decoration:">Terms &amp; Feedback</a>');
+  mapbox.markers.interaction(markerLayer);
+  markerLayer.add_feature({
+    geometry: {
+      coordinates: [$m.data("lon"), $m.data("lat")]
+    },
+    properties: {
+      "marker-color": $m.data("marker-color"),
+      "marker-symbol": $m.data("marker-symbol")
+    }
+  })
+  map.addLayer(markerLayer);
+  $m.data('map', map);
+})();
+</script>
+<script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var pusher = new Pusher('5ee132102bba5f16f0e4'),
+      channel = pusher.subscribe('locations'),
+      $mapEl = $("#current-location-map"),
+      map = $mapEl.data('map'),
+      layer = map.getLayer("markers");
+  channel.bind('new_location', function(data) {
+    layer.features([{
+      geometry: {
+        coordinates: [data.lon, data.lat]
+      },
+      properties: {
+        "marker-color": $mapEl.data("marker-color"),
+        "marker-symbol": $mapEl.data("marker-symbol")
+      }
+    }]);
+    map.center({
+      lat: data.lat,
+      lon: data.lon
+    }, true);
+    $('.details .time').text(data.time);
+    $('.details .pos').text(data.lat + ' / ' + data.lon);
+  });
+</script>

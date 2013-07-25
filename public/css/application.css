@@ -1,0 +1,78 @@
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  padding: 0;
+  background: #edfaff;
+  font-family: sans-serif;
+}
+header {
+  position: relative;
+  height: 80px;
+  color: #FFF;
+  background: #75D7FF;
+  border-bottom: 1px solid #c6e2f0;
+}
+header h1 {
+  margin: 0 30px;
+  font-family: 'Allura', serif;
+  font-size: 5em;
+}
+header #intro {
+  position: absolute;
+  top: 13px;
+  right: 30px;
+  background: #91dcfa;
+  padding: 0.5em;
+  border-radius: 2px;
+}
+header #intro a {
+  color: #edf3f5;
+}
+header #intro code {
+  background: #cdeefa;
+  padding: 1px 3px;
+  color: #4993b2;
+  border-radius: 2px;
+}
+
+#main {
+  height: 100%;
+  padding-top: 80px; /* header height */
+  margin-top: -80px; /* negative header height */
+}
+
+.map-wrapper {
+  position: relative;
+  height: 100%;
+  min-height: 500px;
+  width: 100%;
+}
+
+#current-location-map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.details div {
+  position: absolute;
+  right: 30px;
+  color: #397087;
+  text-shadow: 1px 1px 0px #FFF;
+  padding: 0.2em;
+  background: rgba(255,255,255,0.75);
+  border-radius: 2px;
+  z-index: 5000;
+}
+.details .time {
+  top: 15px;
+}
+.details .pos {
+  bottom: 15px;
+}
